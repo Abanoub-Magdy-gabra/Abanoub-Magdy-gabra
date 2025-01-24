@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abanoub Magdy Gabra - Professional Portfolio</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Roboto+Mono:wght@300;400;600&display=swap');
+
+        :root {
+            --color-primary: #1a73e8;
+            --color-secondary: #34a853;
+            --color-accent: #fbbc05;
+            --color-background: #f5f5f5;
+            --color-text: #202124;
+            --color-card: #ffffff;
+            --color-shadow: rgba(0,0,0,0.1);
+            --gradient-primary: linear-gradient(135deg, #4285f4, #34a853);
+            --gradient-secondary: linear-gradient(135deg, #fbbc05, #ff5621);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-background);
+            color: var(--color-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            perspective: 1000px;
+        }
+
+        .resume-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            background: var(--color-card);
+            box-shadow: 
+                0 15px 35px var(--color-shadow),
+                0 5px 15px rgba(0,0,0,0.05);
+            border-radius: 20px;
+            overflow: hidden;
+        
+        }
+
+        .resume-header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 50px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        }
+
+        .header-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            letter-spacing: -2px;
+        }
+
+        .header-content p {
+            font-size: 1.4rem;
+            opacity: 0.9;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        .header-contact {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 15px;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: white;
+            text-decoration: none;
+            background: rgba(255,255,255,0.15);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.4s ease;
+        }
+
+        .contact-link:hover {
+            background: rgba(255,255,255,0.25);
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .resume-body {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            padding: 50px;
+            position: relative;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            color: var(--color-primary);
+            border-bottom: 4px solid var(--color-secondary);
+            padding-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .section-title i {
+            font-size: 1.8rem;
+            color: var(--color-secondary);
+        }
+
+        .experience-card, .project-card {
+            background: linear-gradient(to right, #f9f9f9, #f5f5f5);
+            border-left: 6px solid var(--color-primary);
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            box-shadow: 
+                0 10px 20px rgba(0,0,0,0.05),
+                0 5px 10px rgba(0,0,0,0.02);
+            transition: all 0.4s ease;
+        }
+
+        .experience-card:hover, .project-card:hover {
+            transform: translateX(15px) scale(1.02);
+            box-shadow: 
+                0 15px 30px rgba(0,0,0,0.1),
+                0 10px 15px rgba(0,0,0,0.05);
+        }
+
+        .skills-sidebar {
+            background: linear-gradient(to bottom right, #e6f2ff, #f0f9ff);
+            padding: 35px;
+            border-radius: 20px;
+            position: sticky;
+            top: 40px;
+            box-shadow: 
+                0 10px 25px rgba(0,0,0,0.05),
+                0 5px 15px rgba(0,0,0,0.02);
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .skill-tag {
+            background: var(--color-primary);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            background: var(--color-secondary);
+            transform: scale(1.05) rotate(-3deg);
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 
+                0 10px 20px rgba(0,0,0,0.1),
+                0 5px 10px rgba(0,0,0,0.05);
+            transition: all 0.4s ease;
+        }
+
+        .pdf-btn {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .print-btn {
+            background: var(--gradient-secondary);
+            color: white;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-7px) scale(1.05);
+            box-shadow: 
+                0 15px 30px rgba(0,0,0,0.15),
+                0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .resume-body {
+                grid-template-columns: 1fr;
+                padding: 30px;
+            }
+
+            .resume-header {
+                flex-direction: column;
+                text-align: center;
+                clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+            }
+
+            .header-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .header-content p {
+                font-size: 1.2rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .header-contact {
+                align-items: center;
+                margin-top: 20px;
+                width: 100%;
+            }
+
+            .contact-link {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .action-btn {
+                width: 80%;
+            }
+        }
+
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #printableResume, #printableResume * {
+                visibility: visible;
+            }
+            #printableResume {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+            }
+            .action-buttons {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="printableResume" class="resume-container">
+        <div class="resume-header">
+            <div class="header-content">
+                <h1>Abanoub Magdy Gabra</h1>
+                <p>
+                    <i class="fas fa-code"></i> Full-Stack Developer | 
+                    <i class="fas fa-headset"></i> Customer Experience Specialist
+                </p>
+            </div>
+            <div class="header-contact">
+                <a href="mailto:Abanobmagdy722@gmail.com" class="contact-link">
+                    <i class="fas fa-envelope"></i> Abanobmagdy722@gmail.com
+                </a>
+                <a href="tel:+201227446147" class="contact-link">
+                    <i class="fas fa-phone"></i> +20 122 744 6147
+                </a>
+                <a href="#" class="contact-link">
+                    <i class="fas fa-map-marker-alt"></i> Ain Shams, Cairo, Egypt
+                </a>
+            </div>
+        </div>
+
+        <div class="resume-body">
+            <div class="main-content">
+                <section>
+                    <h2 class="section-title">
+                        <i class="fas fa-user-tie"></i> Professional Summary
+                    </h2>
+                    <p>
+                        Innovative Full-Stack Developer with a passion for creating cutting-edge web solutions and enhancing customer experiences. Combining technical expertise with strategic problem-solving to deliver impactful digital solutions. Proven track record in customer retention, technical support, and web development.
+                    </p>
+                </section>
+
+                <section>
+                    <h2 class="section-title">
+                        <i class="fas fa-briefcase"></i> Professional Experience
+                    </h2>
+                    <div class="experience-card">
+                        <h3>Customer Retention Specialist | eDreams ODIGEO</h3>
+                        <p>December 2024 - Present</p>
+                        <ul>
+                            <li>Developed and implemented targeted retention strategies using data-driven insights</li>
+                            <li>Reduced customer churn by 15% through personalized engagement approaches</li>
+                            <li>Streamlined customer response processes, improving team efficiency by 25%</li>
+                            <li>Collaborated with cross-functional teams to enhance customer experience platforms</li>
+                        </ul>
+                    </div>
+                    <div class="experience-card">
+                        <h3>Travel Advisor | VRBO (Expedia Group)</h3>
+                        <p>June 2023 - August 2024</p>
+                        <ul>
+                            <li>Maintained exceptional 85% customer satisfaction scores</li>
+                            <li>Identified and escalated technical system improvements</li>
+                            <li>Provided personalized travel consultation services</li>
+                            <li>Managed complex customer inquiries with empathy and efficiency</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="section-title">
+                        <i class="fas fa-project-diagram"></i> Projects
+                    </h2>
+                    <div class="project-card">
+                        <h3>QR Tracker - Academic Project</h3>
+                        <p>Full-stack web application for tracking and managing QR code-based systems</p>
+                        <ul>
+                            <li>Developed using React.js and Node.js</li>
+                            <li>Implemented secure authentication and real-time tracking</li>
+                            <li>Achieved A+ grade for innovative design and functionality</li>
+                        </ul>
+                    </div>
+                    <div class="project-card">
+                        <h3>Customer Engagement Platform</h3>
+                        <p>Custom CRM solution to improve customer interaction workflows</p>
+                        <ul>
+                            <li>Built with MongoDB, Express.js, React, and Node.js (MERN stack)</li>
+                            <li>Integrated advanced analytics and reporting features</li>
+                            <li>Reduced response times by 40%</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="section-title">
+                        <i class="fas fa-graduation-cap"></i> Education
+                    </h2>
+                    <div class="experience-card">
+                        <h3>Bachelor of Business Information Systems</h3>
+                        <p>Graduated April 2023 | GPA: 3.2</p>
+                        <ul>
+                            <li>Specialized in Database Management and Web Development</li>
+                            <li>Academic Project: QR Tracker (A+ Grade)</li>
+                            <li>Relevant Coursework: Software Engineering, Database Design, Web Technologies</li>
+                        </ul>
+                    </div>
+                </section>
+            </div>
+
+            <div class="skills-sidebar">
+                <section>
+                    <h2 class="section-title">
+                        <i class="fas fa-laptop-code"></i> Technical Skills
+                    </h2>
+                    <div id="skillContainer" class="skill-tags"></div>
+                </section>
+
+                <section class="mt-4">
+                    <h2 class="section-title">
+                        <i class="fas fa-globe"></i> Languages
+                    </h2>
+                    <div class="skill-tags">
+                        <span class="skill-tag">English (C1)</span>
+                        <span class="skill-tag">Arabic (Native)</span>
+                        <span class="skill-tag">Italian (B1)</span>
+                    </div>
+                </section>
+
+                <section class="mt-4">
+                    <h2 class="section-title">
+                        <i class="fas fa-certificate"></i> Certifications
+                    </h2>
+                    <div class="skill-tags">
+                        <span class="skill-tag">React Development</span>
+                        <span class="skill-tag">Agile Methodology</span>
+                        <span class="skill-tag">REST API Design</span>
+                        <span class="skill-tag">Cloud Computing Fundamentals</span>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <div class="action-buttons">
+        <button id="pdfBtn" class="action-btn pdf-btn">
+            <i class="fas fa-file-pdf"></i> Export PDF
+        </button>
+        <button onclick="window.print()" class="action-btn print-btn">
+            <i class="fas fa-print"></i> Print Resume
+        </button>
+    </div>
+
+    <script>
+        // Skills with icons
+        const skills = [
+            { name: 'React.js', icon: 'fab fa-react' },
+            { name: 'Node.js', icon: 'fab fa-node-js' },
+            { name: 'Python', icon: 'fab fa-python' },
+            { name: 'HTML5', icon: 'fab fa-html5' },
+            { name: 'CSS3', icon: 'fab fa-css3-alt' },
+            { name: 'JavaScript', icon: 'fab fa-js' },
+            { name: 'MongoDB', icon: 'fas fa-database' },
+            { name: 'Git', icon:  'fab fa-git-alt' },
+            { name: 'Express.js', icon: 'fas fa-server' },
+            { name: 'REST APIs', icon: 'fas fa-network-wired' },
+            { name: 'Docker', icon: 'fab fa-docker' },
+            { name: 'Agile', icon: 'fas fa-chart-line' },
+            { name: 'CRM Systems', icon: 'fas fa-users' },
+            { name: 'Responsive Design', icon: 'fas fa-mobile-alt' }
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const skillContainer = document.getElementById('skillContainer');
+            
+            skills.forEach(skill => {
+                const skillTag = document.createElement('span');
+                skillTag.className = 'skill-tag';
+                
+                const icon = document.createElement('i');
+                icon.className = skill.icon;
+                
+                skillTag.appendChild(icon);
+                skillTag.appendChild(document.createTextNode(skill.name));
+                
+                skillContainer.appendChild(skillTag);
+            });
+
+            // PDF Export functionality with enhanced options
+            document.getElementById('pdfBtn').addEventListener('click', () => {
+                const element = document.getElementById('printableResume');
+                const opt = {
+                    margin: [10, 10, 10, 10],
+                    filename: 'AbanoubMagdyGabra_Resume.pdf',
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { 
+                        scale: 2,
+                        useCORS: true,
+                        logging: false
+                    },
+                    jsPDF: { 
+                        unit: 'mm', 
+                        format: 'a4', 
+                        orientation: 'portrait' 
+                    }
+                };
+
+                html2pdf().set(opt).from(element).save();
+            });
+
+            // Optional: Add subtle animation to skills
+            const skillTags = document.querySelectorAll('.skill-tag');
+            skillTags.forEach((tag, index) => {
+                tag.style.transitionDelay = `${index * 0.1}s`;
+                tag.style.opacity = '0';
+                tag.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    tag.style.opacity = '1';
+                    tag.style.transform = 'translateY(0)';
+                }, 100);
+            });
+        });
+    </script>
+</body>
+</html>
